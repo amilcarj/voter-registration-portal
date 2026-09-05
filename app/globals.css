@@ -1,26 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eeaa00;
+  --foreground: #653819;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand-primary: #eeaa00;
+  --color-brand-secondary: #653819;
+  --color-brand-tertiary: #ff0000;
+  --color-brand-quaternary: #ffffff;
+  --font-stellar: var(--font-stellar);
+  --font-greek-caps: var(--font-greek-caps);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-stellar), Arial, Helvetica, sans-serif;
+}
+
+a {
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--color-brand-tertiary);
+}
+
+.pill-button {
+  @apply rounded-full px-4 py-2 border-2 cursor-pointer w-full max-w-none sm:max-w-[300px] disabled:bg-gray-300 disabled:text-gray-500 disabled:border-gray-400 disabled:hover:border-gray-400 disabled:cursor-not-allowed;
+}
+
+.primary-button {
+  @apply bg-brand-secondary text-brand-primary border-brand-secondary hover:border-brand-primary font-bold;
+}
+
+.secondary-button {
+  @apply bg-brand-quaternary text-brand-secondary border-brand-secondary hover:border-brand-primary;
 }
