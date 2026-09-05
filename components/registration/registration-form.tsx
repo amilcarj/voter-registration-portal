@@ -41,7 +41,7 @@ const RegistrationForm = ({ referrerName }: { referrerName?: string }) => {
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
+    if (file && typeof window !== "undefined") {
       setValue("verificationImage", file, { shouldValidate: true });
       setScreenshot(URL.createObjectURL(file));
     } else {
