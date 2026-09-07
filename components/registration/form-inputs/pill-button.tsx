@@ -1,5 +1,6 @@
 import { Control, Controller } from "react-hook-form";
-import { FormData } from "@/utils/schemas/register";
+
+import { RegistrationFormData } from "@/schemas/register";
 import { cn } from "@/utils/tw-merge";
 
 const PillButton = ({
@@ -7,7 +8,7 @@ const PillButton = ({
   control,
 }: {
   label: string;
-  control: Control<FormData>;
+  control: Control<RegistrationFormData>;
 }) => {
   return (
     <label className="flex items-center gap-2 mb-4">

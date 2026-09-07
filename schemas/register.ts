@@ -1,9 +1,11 @@
 import { z } from "zod";
 
-const REQUIRED_FIELD_ERROR = "This field is required";
-const EMAIL_FIELD_ERROR = "Please enter a valid email";
-const IMAGE_SIZE_ERROR = "Image size must be less than 1MB";
-const IMAGE_TYPE_ERROR = "Image type must be .jpg, .jpeg, .png, or .webp";
+import {
+  EMAIL_FIELD_ERROR,
+  IMAGE_SIZE_ERROR,
+  IMAGE_TYPE_ERROR,
+  REQUIRED_FIELD_ERROR,
+} from "@/constants/validation";
 
 const MAX_FILE_SIZE = 1024 * 1024; // 1MB
 const ACCEPTED_IMAGE_TYPES = new Set([
@@ -15,10 +17,10 @@ const ACCEPTED_IMAGE_TYPES = new Set([
 
 export const registerSchema = z
   .object({
-    firstName: z.string().min(1, REQUIRED_FIELD_ERROR),
-    lastName: z.string().min(1, REQUIRED_FIELD_ERROR),
-    isReferring: z.boolean(),
     email: z.email(EMAIL_FIELD_ERROR),
+    firstName: z.string().min(1, REQUIRED_FIELD_ERROR),
+    isReferring: z.boolean(),
+    lastName: z.string().min(1, REQUIRED_FIELD_ERROR),
     referredEmail: z.string().optional(),
     verificationImage: z
       .instanceof(File, { message: REQUIRED_FIELD_ERROR })
@@ -68,4 +70,6 @@ export const registerSchema = z
     }
   });
 
-export type FormData = z.infer<typeof registerSchema>;
+export type RegistrationFormData = z.infer<typeof registerSchema> & {
+  referrerEmail?: string;
+};

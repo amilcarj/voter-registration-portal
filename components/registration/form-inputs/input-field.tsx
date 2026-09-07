@@ -1,5 +1,6 @@
-import { cn } from "@/utils/tw-merge";
 import { UseFormRegisterReturn } from "react-hook-form";
+
+import { cn } from "@/utils/tw-merge";
 
 const InputField = ({
   label,

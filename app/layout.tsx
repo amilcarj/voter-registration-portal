@@ -1,56 +1,57 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+
 import "./globals.css";
 import { cn } from "@/utils/tw-merge";
 
 const stellar = localFont({
+  display: "swap",
   src: [
     {
       path: "./fonts/Stellar-Light.woff2",
-      weight: "300",
       style: "normal",
+      weight: "300",
     },
     {
       path: "./fonts/Stellar-Regular.woff2",
-      weight: "400",
       style: "normal",
+      weight: "400",
     },
     {
       path: "./fonts/Stellar-Medium.woff2",
-      weight: "500",
       style: "normal",
+      weight: "500",
     },
     {
       path: "./fonts/Stellar-Bold.woff2",
-      weight: "700",
       style: "normal",
+      weight: "700",
     },
   ],
   variable: "--font-stellar",
-  display: "swap",
 });
 
 const greekCaps = localFont({
+  display: "swap",
   src: [
     {
       path: "./fonts/GreekCaps.woff2",
-      weight: "400",
       style: "normal",
+      weight: "400",
     },
   ],
   variable: "--font-greek-caps",
-  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Voter Registration Portal",
   description:
     "A voter registration portal hosted by La Unidad Latina, in partnership with Voto Latino",
+  title: "Voter Registration Portal",
 };
 
 export const viewport: Viewport = {
-  width: "device-width",
   initialScale: 1,
+  width: "device-width",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

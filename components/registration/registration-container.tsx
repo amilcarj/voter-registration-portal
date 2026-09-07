@@ -2,15 +2,19 @@
 
 import { useSearchParams } from "next/navigation";
 
-import DiscountReferrer from "@/components/registration/discount-referrer";
 import DiscountReferred from "@/components/registration/discount-referred";
+import DiscountReferrer from "@/components/registration/discount-referrer";
 
 const RegistrationContainer = () => {
   const searchParams = useSearchParams();
-  const referrerName = searchParams.get("referrer-name");
+  const referrerName = searchParams.get("referrer-name") || "";
+  const referrerEmail = searchParams.get("referrer-email") || "";
 
   const component = referrerName ? (
-    <DiscountReferred referrerName={referrerName} />
+    <DiscountReferred
+      referrerName={referrerName}
+      referrerEmail={referrerEmail}
+    />
   ) : (
     <DiscountReferrer />
   );
