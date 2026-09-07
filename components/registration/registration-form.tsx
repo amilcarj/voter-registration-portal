@@ -54,8 +54,6 @@ const RegistrationForm = ({
     }
   }, [isReferring, setValue, clearErrors]);
 
-  console.log({ errors, isReferring, isSubmitting, isValid });
-
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
