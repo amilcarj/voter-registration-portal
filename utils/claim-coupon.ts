@@ -7,8 +7,9 @@ const supabase = createClient(
 
 export async function claimCouponAtomic(emailToAssign: string) {
   const { data, error } = await supabase.rpc("claim_available_coupon", {
-    claimed_by_email: emailToAssign,
+    email_to_assign: emailToAssign,
   });
+  console.log({ error, data });
   if (error || !data || data.length === 0) return null;
-  return data[0].coupon_code;
+  return data[0].claimed_code;
 }

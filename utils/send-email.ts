@@ -50,17 +50,17 @@ export async function sendManualReviewEmail({
   referredPersonEmail,
   reason,
   buffer,
-  filename,
+  fileName,
   submittedData,
 }: {
   mainRegistrantEmail: string;
   referredPersonEmail: string | null;
   reason: string;
   buffer: Buffer | null;
-  filename: string;
+  fileName: string;
   submittedData: RegistrationFormData;
 }) {
-  const attachments = buffer ? [{ content: buffer, filename }] : [];
+  const attachments = buffer ? [{ content: buffer, fileName }] : [];
 
   const htmlBody = `
     <h3>Voter Registration Action Required / Manual Review</h3>

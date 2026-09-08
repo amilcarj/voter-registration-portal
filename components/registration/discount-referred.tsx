@@ -8,7 +8,7 @@ const DiscountReferred = ({
   referrerEmail: string;
 }) => {
   return (
-    <div>
+    <div className="w-full">
       <h3 className="text-lg font-bold text-center mb-4">
         Your friend, {referrerName}, wants you to register to vote!
       </h3>

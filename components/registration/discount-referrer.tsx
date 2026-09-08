@@ -3,7 +3,7 @@ import { POSH_EVENT_URL } from "@/constants/urls";
 
 const DiscountReferrer = () => {
   return (
-    <div>
+    <div className="w-full">
       <h3 className="text-lg font-bold text-center">
         Want a discount to our{" "}
         <a href={POSH_EVENT_URL} target="_blank" rel="noreferrer">

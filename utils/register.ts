@@ -11,7 +11,7 @@ export async function handleSelfRegistration(data: RegistrationFormData) {
   if (!verification.isValid) {
     await sendManualReviewEmail({
       buffer: verification.buffer,
-      filename: verification.filename,
+      fileName: verification.fileName,
       mainRegistrantEmail: data.email,
       reason: verification.reason,
       referredPersonEmail: null,
@@ -27,7 +27,7 @@ export async function handleSelfRegistration(data: RegistrationFormData) {
   if (!couponCode) {
     await sendManualReviewEmail({
       buffer: verification.buffer,
-      filename: verification.filename,
+      fileName: verification.fileName,
       mainRegistrantEmail: data.email,
       reason: "No coupons remaining.",
       referredPersonEmail: null,
@@ -50,7 +50,7 @@ export async function handleReferredRegistration(
   if (!verification.isValid) {
     await sendManualReviewEmail({
       buffer: verification.buffer,
-      filename: verification.filename,
+      fileName: verification.fileName,
       mainRegistrantEmail: referrerEmail,
       reason: verification.reason,
       referredPersonEmail: data.email,
@@ -66,7 +66,7 @@ export async function handleReferredRegistration(
   if (!couponCode) {
     await sendManualReviewEmail({
       buffer: verification.buffer,
-      filename: verification.filename,
+      fileName: verification.fileName,
       mainRegistrantEmail: referrerEmail,
       reason: "No coupons remaining for referrer.",
       referredPersonEmail: data.email,

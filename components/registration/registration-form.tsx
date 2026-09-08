@@ -108,20 +108,22 @@ const RegistrationForm = ({
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col justify-center"
       >
-        <InputField
-          label="What's your first name?"
-          placeholder="First Name"
-          type="text"
-          error={errors.firstName?.message}
-          registerProps={{ ...register("firstName") }}
-        />
-        <InputField
-          label="What's your last name?"
-          placeholder="Last Name"
-          type="text"
-          error={errors.lastName?.message}
-          registerProps={{ ...register("lastName") }}
-        />
+        <div className="flex w-full flex-col sm:gap-3 sm:flex-row">
+          <InputField
+            label="What's your first name?"
+            placeholder="First Name"
+            type="text"
+            error={errors.firstName?.message}
+            registerProps={{ ...register("firstName") }}
+          />
+          <InputField
+            label="What's your last name?"
+            placeholder="Last Name"
+            type="text"
+            error={errors.lastName?.message}
+            registerProps={{ ...register("lastName") }}
+          />
+        </div>
         <InputField
           label="What's your email?"
           placeholder="Email"
@@ -168,9 +170,12 @@ const RegistrationForm = ({
             </p>
             <p>
               After you register, upload a screenshot of your voter registration
-              confirmation email. Make sure it has your name, the email used in
-              this form and the date it was sent. If all looks good, we&apos;ll
-              send {referrerName || "you"} a coupon for our next event!
+              confirmation email. If no email is sent, upload a screenshot of
+              the registration site&apos;s confirmation page. We&apos;re looking
+              for signs of an official confirmation from your state - not
+              required but including your name, email and the date of
+              confirmation would be great! If all looks good, we&apos;ll send{" "}
+              {referrerName || "you"} a coupon for our next event!
             </p>
             <UploadButton
               handleFileUpload={handleFileUpload}

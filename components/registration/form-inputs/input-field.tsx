@@ -18,7 +18,7 @@ const InputField = ({
   const id = label.toLowerCase().replace(/\s+/g, "-");
 
   return (
-    <div className="flex flex-col mb-4">
+    <div className="flex flex-1 flex-col mb-4">
       <label htmlFor={id} className="flex flex-col mb-1">
         {label}
       </label>
