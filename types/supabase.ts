@@ -66,6 +66,36 @@ export type Database = {
         }
         Relationships: []
       }
+      verification_jobs: {
+        Row: {
+          claimed_coupon: string | null
+          created_at: string
+          email: string
+          error_message: string | null
+          id: string
+          image_path: string
+          status: string
+        }
+        Insert: {
+          claimed_coupon?: string | null
+          created_at?: string
+          email: string
+          error_message?: string | null
+          id?: string
+          image_path: string
+          status?: string
+        }
+        Update: {
+          claimed_coupon?: string | null
+          created_at?: string
+          email?: string
+          error_message?: string | null
+          id?: string
+          image_path?: string
+          status?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
