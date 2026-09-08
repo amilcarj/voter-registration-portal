@@ -81,6 +81,7 @@ export const verifyDocument = async (data: RegistrationFormData) => {
       reason: "Missing image file",
     };
   }
+  const fileName = file.name || "screenshot.png";
 
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
@@ -158,8 +159,6 @@ export const verifyDocument = async (data: RegistrationFormData) => {
     rejectionReason,
   } = response;
 
-  const fileName = file.name || "screenshot.png";
-
   if (
     !isValid ||
     !VALID_DOCUMENT_TYPES.has(documentType) ||
@@ -192,7 +191,7 @@ export const verifyDocument = async (data: RegistrationFormData) => {
     }
   }
 
-  return { buffer, fileName: file.name, isValid: true, reason: "" };
+  return { buffer, fileName, isValid: true, reason: "" };
 };
 
 const validateEmail = (

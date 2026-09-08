@@ -33,7 +33,7 @@ const RegistrationForm = ({
     defaultValues: {
       isReferring: false,
     },
-    mode: "onBlur",
+    mode: "all",
     resolver: zodResolver(registerSchema),
   });
   const isReferring = useWatch({ control, name: "isReferring" });
@@ -93,6 +93,7 @@ const RegistrationForm = ({
         SUCCESS_MODAL_RESULT(isReferring, referrerEmail !== undefined),
       );
       reset();
+      setScreenshot(null);
     } catch (err) {
       setModalMessage(ERROR_MODAL_RESULT);
       console.error(err);
@@ -172,10 +173,9 @@ const RegistrationForm = ({
               After you register, upload a screenshot of your voter registration
               confirmation email. If no email is sent, upload a screenshot of
               the registration site&apos;s confirmation page. We&apos;re looking
-              for signs of an official confirmation from your state - not
-              required but including your name, email and the date of
-              confirmation would be great! If all looks good, we&apos;ll send{" "}
-              {referrerName || "you"} a coupon for our next event!
+              for signs of an official confirmation from your state! If all
+              looks good, we&apos;ll send {referrerName || "you"} a coupon for
+              our next event!
             </p>
             <UploadButton
               handleFileUpload={handleFileUpload}
