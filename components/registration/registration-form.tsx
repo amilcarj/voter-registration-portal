@@ -8,6 +8,7 @@ import InputField from "@/components/registration/form-inputs/input-field";
 import PillButton from "@/components/registration/form-inputs/pill-button";
 import UploadButton from "@/components/registration/form-inputs/upload-button";
 import ResultModal from "@/components/registration/result-modal";
+import Spinner from "@/components/spinner";
 import {
   ERROR_MODAL_RESULT,
   SUCCESS_MODAL_RESULT,
@@ -197,6 +198,11 @@ const RegistrationForm = ({
         showModal={showResultModal}
         modalMessage={modalMessage}
       />
+      <div
+        className={`bg-black/70 flex justify-center items-center fixed inset-0 ${isSubmitting ? "opacity-100 z-9999 transition-all duration-300 visible" : "opacity-0 z-[-9999] transition-all duration-300 invisible"}`}
+      >
+        <Spinner />
+      </div>
     </>
   );
 };
