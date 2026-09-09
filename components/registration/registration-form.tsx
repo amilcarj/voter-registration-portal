@@ -11,6 +11,7 @@ import { registerSchema, RegistrationFormData } from "@/schemas/register";
 
 const RegistrationForm = ({
   isSubmitting,
+  setIsReferral,
   setIsSubmitting,
   setIsSubmitted,
   setShowErrorModal,
@@ -18,6 +19,7 @@ const RegistrationForm = ({
   referrerName,
 }: {
   isSubmitting: boolean;
+  setIsReferral: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
   setShowErrorModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -88,6 +90,7 @@ const RegistrationForm = ({
       }
 
       reset();
+      setIsReferral(isReferring);
       setIsSubmitted(true);
       setScreenshot(null);
     } catch (err) {

@@ -20,12 +20,17 @@ const RegistrationFormContainer = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [isReferral, setIsReferral] = useState(false);
 
   const formComponent = isSubmitted ? (
-    <RegistrationFormCompleted referrerName={referrerName} />
+    <RegistrationFormCompleted
+      isReferral={isReferral}
+      referrerName={referrerName}
+    />
   ) : (
     <RegistrationForm
       isSubmitting={isSubmitting}
+      setIsReferral={setIsReferral}
       setIsSubmitting={setIsSubmitting}
       setIsSubmitted={setIsSubmitted}
       setShowErrorModal={setShowErrorModal}
