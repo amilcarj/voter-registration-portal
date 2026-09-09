@@ -13,6 +13,7 @@ const eslintConfig = defineConfig([
       "react-hooks": reactHooks,
     },
     rules: {
+      "eol-last": ["error", "always"],
       "import/order": [
         "error",
         {

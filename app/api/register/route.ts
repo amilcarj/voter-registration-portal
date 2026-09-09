@@ -1,24 +1,13 @@
 import { NextResponse } from "next/server";
 
 import { registerSchema, RegistrationFormData } from "@/schemas/register";
-import { handleFriendReferral } from "@/utils/refer-friend";
+import { handleFriendReferral } from "@/services/queue/refer-friend";
 import {
   handleReferredRegistration,
   handleSelfRegistration,
-} from "@/utils/register";
-import { transporter } from "@/utils/send-email";
+} from "@/services/queue/register";
 
 export async function POST(req: Request) {
-  try {
-    if (process.env.NODE_ENV !== "production") {
-      await transporter.verify();
-      console.log("SMTP Connection verified successfully");
-    }
-  } catch (error) {
-    console.error("SMTP or Server Error:", error);
-    return NextResponse.json({ error }, { status: 500 });
-  }
-
   try {
     const formData = await req.formData();
 
@@ -28,24 +17,26 @@ export async function POST(req: Request) {
       isReferring: formData.get("isReferring") === "true",
       lastName: formData.get("lastName"),
       referredEmail: formData.get("referredEmail") || undefined,
-      verificationImage:
-        formData.get("verificationImage") || undefined,
+      verificationImage: formData.get("verificationImage") || undefined,
     };
 
     const data: RegistrationFormData = registerSchema.parse(rawData);
-    const referrerEmail = formData.get("referrerEmail") as
-      | string
-      | null;
+    const referrerEmail = formData.get("referrerEmail") as string | null;
 
     if (data.isReferring) {
-      return await handleFriendReferral(data);
+      const result = await handleFriendReferral(data);
+      return NextResponse.json(result, { status: 202 });
     }
+
     if (referrerEmail) {
-      return await handleReferredRegistration(data, referrerEmail);
+      const result = await handleReferredRegistration(data, referrerEmail);
+      return NextResponse.json(result, { status: 202 });
     }
-    return await handleSelfRegistration(data);
+
+    const result = await handleSelfRegistration(data);
+    return NextResponse.json(result, { status: 202 });
   } catch (error) {
-    console.error("Error:", error);
+    console.error("Registration Error:", error);
     return NextResponse.json({ error }, { status: 500 });
   }
 }

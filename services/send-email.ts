@@ -1,46 +1,32 @@
-import nodemailer, { Transporter, SendMailOptions } from "nodemailer";
+import { SendMailOptions } from "nodemailer";
 
-import { BASE_APP_URL } from "@/constants/urls";
-import { RegistrationFormData } from "@/schemas/register";
-
-const globalForNodemailer = globalThis as unknown as {
-  transporter: Transporter | undefined;
-};
-
-export const transporter =
-  globalForNodemailer.transporter ??
-  nodemailer.createTransport({
-    auth: {
-      pass: process.env.GMAIL_APP_PASSWORD,
-      user: process.env.GMAIL_USER,
-    },
-    host: "smtp.gmail.com",
-    port: 465,
-    secure: true,
-  });
-
-if (process.env.NODE_ENV !== "production") {
-  globalForNodemailer.transporter = transporter;
-}
+import { BASE_APP_URL, POSH_EVENT_URL } from "@/constants/urls";
+import { transporter } from "@/lib/nodemailer";
+import { ReferFriendPayload } from "@/types/inngest";
 
 export async function sendSuccessEmail({
-  data,
+  email,
+  firstName,
+  lastName,
   couponCode,
-  recipient,
+  isReferred,
 }: {
-  data: RegistrationFormData;
+  email: string;
+  firstName: string;
+  lastName: string;
   couponCode: string;
-  recipient: string;
+  isReferred: boolean;
 }) {
-  const name = `${data.firstName} ${data.lastName}'s`;
+  const name = `${firstName} ${lastName}'s`;
 
   await sendEmail(
-    [recipient],
+    [email],
     "Your Event Coupon Code!",
     `
       <p>Great news!</p>
-      <p>${data.email === recipient ? "Your" : name} voter registration was successfully verified!</p>
+      <p>${isReferred ? name : "Your"} voter registration was successfully verified!</p>
       <p>Here is your event coupon code: <strong>${couponCode}</strong></p>
+      <p>You can use the code at the our event <a href="${POSH_EVENT_URL}" target="_blank" rel="noreferrer">here</a>.</p>
     `,
   );
 }
@@ -51,14 +37,16 @@ export async function sendManualReviewEmail({
   reason,
   buffer,
   fileName,
-  submittedData,
+  firstName,
+  lastName,
 }: {
   mainRegistrantEmail: string;
   referredPersonEmail: string | null;
   reason: string;
-  buffer: Buffer | null;
+  buffer: Buffer<ArrayBuffer> | null;
   fileName: string;
-  submittedData: RegistrationFormData;
+  firstName: string;
+  lastName: string;
 }) {
   const attachments = buffer ? [{ content: buffer, filename: fileName }] : [];
 
@@ -69,7 +57,7 @@ export async function sendManualReviewEmail({
     <hr />
     <p><strong>Main Registrant Email:</strong> ${mainRegistrantEmail}</p>
     ${referredPersonEmail ? `<p><strong>Referred Person Email:</strong> ${referredPersonEmail}</p>` : ""}
-    <p><strong>Submitted Name:</strong> ${submittedData.firstName} ${submittedData.lastName}</p>
+    <p><strong>Submitted Name:</strong> ${firstName} ${lastName}</p>
     <p><em>The uploaded screenshot is attached to this email.</em></p>
   `;
 
@@ -81,7 +69,7 @@ export async function sendManualReviewEmail({
   );
 }
 
-export async function sendReferEmail(data: RegistrationFormData) {
+export async function sendReferEmail(data: Omit<ReferFriendPayload, "jobId">) {
   const referralLink = `${BASE_APP_URL}?referrer-name=${encodeURIComponent(
     `${data.firstName} ${data.lastName}`,
   )}&referrer-email=${encodeURIComponent(data.email)}`;
