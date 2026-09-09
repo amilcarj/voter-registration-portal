@@ -1,4 +1,8 @@
-import RegistrationForm from "@/components/registration/registration-form";
+"use client";
+
+import { useState } from "react";
+
+import RegistrationFormContainer from "@/components/registration/registration-form-container";
 
 const DiscountReferred = ({
   referrerName,
@@ -7,12 +11,18 @@ const DiscountReferred = ({
   referrerName: string;
   referrerEmail: string;
 }) => {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   return (
     <div className="w-full">
-      <h3 className="text-lg font-bold text-center mb-4">
-        Your friend, {referrerName}, wants you to register to vote!
-      </h3>
-      <RegistrationForm
+      {!isSubmitted && (
+        <h3 className="text-lg font-bold text-center mb-4">
+          Your friend, {referrerName}, wants you to register to vote!
+        </h3>
+      )}
+      <RegistrationFormContainer
+        isSubmitted={isSubmitted}
+        setIsSubmitted={setIsSubmitted}
         referrerName={referrerName}
         referrerEmail={referrerEmail}
       />

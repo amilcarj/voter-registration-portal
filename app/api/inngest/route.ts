@@ -5,7 +5,6 @@ import processFriendReferral from "@/lib/inngest/functions/process-friend-referr
 import processReferredRegistration from "@/lib/inngest/functions/process-referred-registration";
 import processSelfRegistration from "@/lib/inngest/functions/process-self-registration";
 
-
 export const { GET, POST, PUT } = serve({
   client: inngest,
   functions: [

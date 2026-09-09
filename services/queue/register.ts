@@ -1,4 +1,8 @@
-import { ERROR_MESSAGES, JOB_STATUS, VOTER_CONFIRMATIONS_STORAGE_KEY } from "@/constants/worker-processing";
+import {
+  ERROR_MESSAGES,
+  JOB_STATUS,
+  VOTER_CONFIRMATIONS_STORAGE_KEY,
+} from "@/constants/worker-processing";
 import {
   inngest,
   selfRegistrationSubmitted,
@@ -11,7 +15,10 @@ const uploadImage = async (file: File | undefined) => {
   if (!file) {
     throw new Error(ERROR_MESSAGES.IMAGE_MISSING);
   }
-  const filePath = `uploads/${Date.now()}_${file.name}`;
+  const sanitizedFileName = file.name
+    .replace(/\s+/g, "_")
+    .replace(/[^a-zA-Z0-9._-]/g, "");
+  const filePath = `uploads/${Date.now()}_${sanitizedFileName}`;
 
   const { error: uploadError } = await supabaseClient.storage
     .from(VOTER_CONFIRMATIONS_STORAGE_KEY)

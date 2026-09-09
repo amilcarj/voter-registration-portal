@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation";
 import DiscountReferred from "@/components/registration/discount-referred";
 import DiscountReferrer from "@/components/registration/discount-referrer";
 
-const RegistrationContainer = () => {
+const RegistrationTypeContainer = () => {
   const searchParams = useSearchParams();
   const referrerName = searchParams.get("referrer-name") || "";
   const referrerEmail = searchParams.get("referrer-email") || "";
@@ -26,4 +26,4 @@ const RegistrationContainer = () => {
   );
 };
 
-export default RegistrationContainer;
+export default RegistrationTypeContainer;

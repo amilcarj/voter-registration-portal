@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import Hero from "@/components/hero";
-import RegistrationContainer from "@/components/registration/registration-container";
+import RegistrationTypeContainer from "@/components/registration-type-container";
 import Spinner from "@/components/spinner";
 import Welcome from "@/components/welcome";
 
@@ -11,7 +11,7 @@ export default function Home() {
       <Hero />
       <Welcome />
       <Suspense fallback={<Spinner />}>
-        <RegistrationContainer />
+        <RegistrationTypeContainer />
       </Suspense>
     </main>
   );
