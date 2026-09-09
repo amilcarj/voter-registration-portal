@@ -75,7 +75,7 @@ const sendInngestEvent = async (
 export async function handleSelfRegistration(data: RegistrationFormData) {
   const filePath = await uploadImage(data.verificationImage);
   const job = await createVerificationJob(data, filePath);
-  sendInngestEvent(data, filePath, job.id, selfRegistrationSubmitted.name);
+  await sendInngestEvent(data, filePath, job.id, selfRegistrationSubmitted.name);
 
   return {
     jobId: job.id,
