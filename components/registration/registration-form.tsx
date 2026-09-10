@@ -169,9 +169,13 @@ const RegistrationForm = ({
             After you register, upload a screenshot of your voter registration
             confirmation email. If no email is sent, upload a screenshot of the
             registration site&apos;s confirmation page. We&apos;re looking for
-            signs of an official confirmation from your state! If all looks
-            good, we&apos;ll send {referrerName || "you"} a coupon for our next
-            event!
+            signs of an official confirmation from your state.
+            <span className="font-bold">
+              {" "}
+              Make sure to redact sensitive information (SSN, DOB, etc)
+            </span>
+            . If all looks good, we&apos;ll send {referrerName || "you"} a
+            coupon for our next event!
           </p>
           <UploadButton
             handleFileUpload={handleFileUpload}
