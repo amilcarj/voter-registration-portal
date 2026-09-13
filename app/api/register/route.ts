@@ -9,6 +9,13 @@ import {
 
 export async function POST(req: Request) {
   try {
+    if (new Date() > new Date("2026-09-12T00:00:00Z")) {
+      return NextResponse.json(
+        { error: "Sorry, this coupon is no longer active" },
+        { status: 422 },
+      );
+    }
+
     const formData = await req.formData();
 
     const rawData = {

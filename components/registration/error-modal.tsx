@@ -1,11 +1,13 @@
 import { AlertCircle } from "lucide-react";
 
 const ErrorModal = ({
-  showModal,
   closeModal,
+  errorMessage,
+  showModal,
 }: {
-  showModal: boolean;
   closeModal: React.MouseEventHandler<HTMLButtonElement>;
+  errorMessage: string;
+  showModal: boolean;
 }) => {
   return (
     <div
@@ -17,7 +19,7 @@ const ErrorModal = ({
           Something went wrong
         </h3>
         <p className="mt-1 text-sm text-brand-secondary text-center">
-          An error occurred. Please try again.
+          {errorMessage}
         </p>
         <button
           onClick={closeModal}

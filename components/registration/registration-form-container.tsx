@@ -20,6 +20,7 @@ const RegistrationFormContainer = ({
 }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [isReferral, setIsReferral] = useState(false);
 
   const formComponent = isSubmitted ? (
@@ -33,6 +34,7 @@ const RegistrationFormContainer = ({
       setIsReferral={setIsReferral}
       setIsSubmitting={setIsSubmitting}
       setIsSubmitted={setIsSubmitted}
+      setErrorMessage={setErrorMessage}
       setShowErrorModal={setShowErrorModal}
       referrerName={referrerName}
       referrerEmail={referrerEmail}
@@ -43,6 +45,7 @@ const RegistrationFormContainer = ({
     <>
       {formComponent}
       <ErrorModal
+        errorMessage={errorMessage || "An error occurred. Please try again."}
         closeModal={() => setShowErrorModal(false)}
         showModal={showErrorModal}
       />

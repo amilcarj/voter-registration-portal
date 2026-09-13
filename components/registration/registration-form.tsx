@@ -11,6 +11,7 @@ import { registerSchema, RegistrationFormData } from "@/schemas/register";
 
 const RegistrationForm = ({
   isSubmitting,
+  setErrorMessage,
   setIsReferral,
   setIsSubmitting,
   setIsSubmitted,
@@ -19,6 +20,7 @@ const RegistrationForm = ({
   referrerName,
 }: {
   isSubmitting: boolean;
+  setErrorMessage: React.Dispatch<React.SetStateAction<string | null>>;
   setIsReferral: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
   setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
@@ -86,6 +88,9 @@ const RegistrationForm = ({
 
       const result = await res.json();
       if (!res.ok) {
+        if (res.status === 422) {
+          setErrorMessage(result.error);
+        }
         throw new Error(result.error || "Submission failed.");
       }
 
@@ -94,8 +99,8 @@ const RegistrationForm = ({
       setIsSubmitted(true);
       setScreenshot(null);
     } catch (err) {
-      setShowErrorModal(true);
       console.error(err);
+      setShowErrorModal(true);
     } finally {
       setIsSubmitting(false);
     }
